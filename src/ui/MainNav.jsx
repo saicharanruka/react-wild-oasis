@@ -5,7 +5,6 @@ import {
 	HiOutlineCalendarDays,
 	HiOutlineHomeModern,
 	HiOutlineUserGroup,
-	HiOutlineUserCircle,
 	HiOutlineWrenchScrewdriver,
 } from "react-icons/hi2";
 
