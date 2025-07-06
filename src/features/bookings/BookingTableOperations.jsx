@@ -3,31 +3,31 @@ import Filter from "../../ui/Filter";
 import TableOperations from "../../ui/TableOperations";
 
 function BookingTableOperations() {
-  return (
-    <TableOperations>
-      <Filter
-        filterField="status"
-        options={[
-          { value: "all", label: "All" },
-          { value: "checked-out", label: "Checked out" },
-          { value: "checked-in", label: "Checked in" },
-          { value: "unconfirmed", label: "Unconfirmed" },
-        ]}
-      />
+	return (
+		<TableOperations>
+			<Filter
+				filteredField="status"
+				options={[
+					{ params: "all", name: "All" },
+					{ params: "checked-out", name: "Checked out" },
+					{ params: "checked-in", name: "Checked in" },
+					{ params: "unconfirmed", name: "Unconfirmed" },
+				]}
+			/>
 
-      <SortBy
-        options={[
-          { value: "startDate-desc", label: "Sort by date (recent first)" },
-          { value: "startDate-asc", label: "Sort by date (earlier first)" },
-          {
-            value: "totalPrice-desc",
-            label: "Sort by amount (high first)",
-          },
-          { value: "totalPrice-asc", label: "Sort by amount (low first)" },
-        ]}
-      />
-    </TableOperations>
-  );
+			<SortBy
+				options={[
+					{ params: "startDate-desc", name: "Sort by date (recent first)" },
+					{ params: "startDate-asc", name: "Sort by date (earlier first)" },
+					{
+						params: "totalPrice-desc",
+						name: "Sort by amount (high first)",
+					},
+					{ params: "totalPrice-asc", name: "Sort by amount (low first)" },
+				]}
+			/>
+		</TableOperations>
+	);
 }
 
 export default BookingTableOperations;
