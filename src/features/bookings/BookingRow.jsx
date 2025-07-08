@@ -7,8 +7,15 @@ import Table from "../../ui/Table";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import Menus from "../../ui/Menus";
-import { HiArrowDownOnSquareStack, HiEye } from "react-icons/hi2";
-import { Navigate, useNavigate } from "react-router-dom";
+import {
+	HiArrowDownOnSquareStack,
+	HiArrowUpOnSquareStack,
+	HiEye,
+} from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../check-in-out/useCheckout";
+import { useDeleteBooking } from "./useDeleteBooking";
+import { HiTrash } from "react-icons/hi";
 
 const Cabin = styled.div`
 	font-size: 1.6rem;
@@ -58,16 +65,16 @@ function BookingRow({
 	};
 
 	const navigate = useNavigate();
+	const { checkout, isCheckingOut } = useCheckout();
+	const { deleteBooking, isDeleting } = useDeleteBooking();
 
 	return (
 		<Table.Row>
 			<Cabin>{cabinName}</Cabin>
-
 			<Stacked>
 				<span>{guestName}</span>
 				<span>{email}</span>
 			</Stacked>
-
 			<Stacked>
 				<span>
 					{isToday(new Date(startDate))
@@ -80,13 +87,10 @@ function BookingRow({
 					{format(new Date(endDate), "MMM dd yyyy")}
 				</span>
 			</Stacked>
-
 			<Tag type={statusToTagName[status.toLowerCase()]}>
 				{status.replace("-", " ")}
 			</Tag>
-
 			<Amount>{formatCurrency(totalPrice)}</Amount>
-
 			<Menus.Menu>
 				<Menus.Toggle id={bookingId} />
 				<Menus.List id={bookingId}>
@@ -102,6 +106,29 @@ function BookingRow({
 							icon={<HiArrowDownOnSquareStack />}
 						>
 							Check In
+						</Menus.Button>
+					)}
+					{status.toLowerCase() === "checked-in" && (
+						<Menus.Button
+							onClick={() => {
+								checkout(bookingId);
+							}}
+							icon={<HiArrowUpOnSquareStack />}
+							disabled={isCheckingOut}
+						>
+							Check Out
+						</Menus.Button>
+					)}
+					{status.toLowerCase() === "checked-out" && (
+						<Menus.Button
+							onClick={() => {
+								deleteBooking(bookingId);
+							}}
+							icon={<HiTrash />}
+							disabled={isDeleting}
+							variation="danger"
+						>
+							Delete
 						</Menus.Button>
 					)}
 				</Menus.List>
