@@ -5,11 +5,13 @@ import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical.jsx";
 import { useLogin } from "./useLogin.js";
 import SpinnerMini from "../../ui/SpinnerMini.jsx";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const { login, isLoading } = useLogin();
+	const navigate = useNavigate("/");
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -21,6 +23,7 @@ function LoginForm() {
 				onSettled: () => {
 					setEmail("");
 					setPassword("");
+					navigate("/dashboard");
 				},
 			}
 		);
