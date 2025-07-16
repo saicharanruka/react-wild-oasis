@@ -34,7 +34,6 @@ export async function createEditCabin(newCabin, id) {
 	else query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
 
 	const { data, error } = await query.select().single();
-	console.log(data);
 	if (error) {
 		console.error(error);
 		throw new Error("Cabins table could not be created");
